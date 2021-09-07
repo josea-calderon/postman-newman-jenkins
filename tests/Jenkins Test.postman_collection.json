@@ -1,0 +1,84 @@
+{
+	"info": {
+		"_postman_id": "58b3c73a-13c2-41a5-9cc9-e24009414e9e",
+		"name": "Jenkins Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/swift-retriever",
+			"item": [
+				{
+					"name": "Budgeted turn time",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response fields are correct\", function () {\r",
+									"    let expectedStrings = [\"schedDate\", \"f1SchedDepCity\", \"f1SchedDepTime\", \"f1OrigFlightNumber\", \"f1SchedFlightNumber\", \"f2SchedDepCity\", \"f2SchedDepTime\", \"f2OrigFlightNumber\", \"f2SchedFlightNumber\", \"budgetTurnTime\", \"activeTurn\", \"lineNumber\"];\r",
+									"    expectedStrings.forEach((s) => pm.expect(pm.response.text()).to.have.string(s));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 100ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(100);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Input departure city is correct\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"HOU\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://swiftsvc.dev1.swacorp.com/v3/SwiftRetriever/SwiftRetriever/swift-retriever/budgeted-turn-time?schedDate=2021-09-07&schedDepCity=HOU&flightNumber=108",
+							"protocol": "https",
+							"host": [
+								"swiftsvc",
+								"dev1",
+								"swacorp",
+								"com"
+							],
+							"path": [
+								"v3",
+								"SwiftRetriever",
+								"SwiftRetriever",
+								"swift-retriever",
+								"budgeted-turn-time"
+							],
+							"query": [
+								{
+									"key": "schedDate",
+									"value": "2021-09-07"
+								},
+								{
+									"key": "schedDepCity",
+									"value": "HOU"
+								},
+								{
+									"key": "flightNumber",
+									"value": "108"
+								},
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
